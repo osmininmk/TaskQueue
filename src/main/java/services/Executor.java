@@ -70,7 +70,6 @@ public class Executor implements Runnable {
                 }
             }
         } finally {
-			session.createSQLQuery("UNLOCK TABLES").executeUpdate();
             session.close();
             if (!processSuccessfully) {
 				log.warn("Execution processing has error, revert changes");
