@@ -19,7 +19,14 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
+/**
+ * Main class, should be lunched
+ * Initialized hibernate configuration from xml config,
+ * read property, schedule generator{@link services.Generator},
+ * executor {@link services.Executor}, clenup job {@link services.CleanupJob}
+ */
 public class Main {
+	private static final Logger log = Logger.getLogger(Main.class);
     private static final SessionFactory ourSessionFactory;
     static {
         try {
@@ -40,6 +47,17 @@ public class Main {
         return ourSessionFactory.openSession();
     }
 
+    /*
+     * Main method
+     * Read properties
+     * Schedule works
+     */
     public static void main(final String[] args) throws Exception {
+		Properties properties = new Properties();
+		try {
+			properties.load(new FileInputStream(Main.class.getClassLoader().getResource("config.properties").getPath()));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 }
