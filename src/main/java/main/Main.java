@@ -59,6 +59,10 @@ public class Main {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		ScheduledExecutorService service = Executors.newScheduledThreadPool(2);
+		service.scheduleWithFixedDelay(new Executor(Integer.valueOf(properties.getProperty("handlerCount"))),
+				0, Integer.valueOf(properties.getProperty("handlerDelaySeconds")), TimeUnit.SECONDS);
+        service.scheduleWithFixedDelay(new CleanupJob(), 0, 24, TimeUnit.HOURS);
 		new Generator().start();
 	}
 }
